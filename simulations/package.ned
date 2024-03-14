@@ -1,3 +1,3 @@
-package simu.simulations;
+package tandemqueuesystem_simulation.simulations;
 
 @license(LGPL);

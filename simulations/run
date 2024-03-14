@@ -1,4 +1,4 @@
 #!/bin/sh
 cd `dirname $0`
-../src/simu -n .:../src $*
-# for shared lib, use: opp_run -l ../src/simu -n .:../src $*
+../src/tandemqueuesystem_simulation -n .:../src $*
+# for shared lib, use: opp_run -l ../src/tandemqueuesystem_simulation -n .:../src $*

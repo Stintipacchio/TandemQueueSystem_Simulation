@@ -13,15 +13,25 @@ import simu.Qlib_Custom.Source;
 network TandemQueueSystem
 {
     parameters:
-        double λ = [2.0, 1.4, 1.2, 1.0];
-        double m1 = [0.4, 0.3, 0.25, 0.20];
-        double m2 = [0.4, 0.3, 0.25, 0.20];
-        double p_min = [1, 4, 8]; // Minimo costo di servizio
-        double p_max = [3, 6, 10]; // Massimo costo di servizio
-        double V_min = [14, 18, 20]; // Minimo guadagno
-        double V_max = [16, 20, 22]; // Massimo guadagno
+//        double λ = [2.0, 1.4, 1.2, 1.0];
+//        double m1 = [0.4, 0.3, 0.25, 0.20];
+//        double m2 = [0.4, 0.3, 0.25, 0.20];
+//        double p_min = [1, 4, 8]; // Minimo costo di servizio
+//        double p_max = [3, 6, 10]; // Massimo costo di servizio
+//        double V_min = [14, 18, 20]; // Minimo guadagno
+//        double V_max = [16, 20, 22]; // Massimo guadagno
+//        double CW = 1.0;
+//        int N = [1, 2, 3, 4, 5]; // Numero di utenti
+//        int numRuns = 10; // Numero di simulazioni da eseguire per ogni combinazione di parametri
+        double λ = 2.0;
+        double m1 = 0.4;
+        double m2 = 0.4;
+        double p_min = 1; // Minimo costo di servizio
+        double p_max = 3; // Massimo costo di servizio
+        double V_min = 14; // Minimo guadagno
+        double V_max = 16; // Massimo guadagno
         double CW = 1.0;
-        int N = [1, 2, 3, 4, 5]; // Numero di utenti
+        int N = 1; // Numero di utenti
         int numRuns = 10; // Numero di simulazioni da eseguire per ogni combinazione di parametri
 
     submodules:
