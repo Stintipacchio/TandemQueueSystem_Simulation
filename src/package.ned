@@ -35,4 +35,6 @@ network TandemQueueSystem
         Q1.out1 --> IdealChannel --> Server.in++;
         Q2.out1 --> IdealChannel --> Server.in++;
         Q2.out2 --> IdealChannel --> sink.in++;
+        Server.out2 --> IdealChannel --> Q2.in++;
+        Server.out1 --> IdealChannel --> Q1.in++;
 }
