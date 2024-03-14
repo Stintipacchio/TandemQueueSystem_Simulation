@@ -1,0 +1,31 @@
+version 3
+run General-0-20240314-22:25:11-12592
+attr configname General
+attr datetime 20240314-22:25:11
+attr datetimef 20240314-222511
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network TandemQueueSystem
+attr processid 12592
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config network TandemQueueSystem
+
+vector 0 TandemQueueSystem.Q1 queueLength:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr title "queue length"
+vector 1 TandemQueueSystem.Q2 queueLength:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr title "queue length"
+0	0	0	0
+1	0	0	0
+
