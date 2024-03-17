@@ -35,6 +35,10 @@ void Server::initialize()
     selectionStrategy = SelectionStrategy::create(par("fetchingAlgorithm"), this, true);
     if (!selectionStrategy)
         throw cRuntimeError("invalid selection strategy");
+
+    customersServedQ1 = 0;
+    customersServedQ2 = 0;
+    fromQueue1 = true;  // Start serving from Queue 1
 }
 
 void Server::handleMessage(cMessage *msg)
@@ -44,18 +48,37 @@ void Server::handleMessage(cMessage *msg)
         ASSERT(allocated);
         simtime_t d = simTime() - endServiceMsg->getSendingTime();
         jobServiced->setTotalServiceTime(jobServiced->getTotalServiceTime() + d);
-        send(jobServiced, "out");
+        if (fromQueue1)
+            send(jobServiced, "out");
+        else
+            send(jobServiced, "out2");
         jobServiced = nullptr;
         allocated = false;
         emit(busySignal, false);
 
-        // examine all input queues, and request a new job from a non empty queue
-        int k = selectionStrategy->select();
-        if (k >= 0) {
-            EV << "requesting job from queue " << k << endl;
-            cGate *gate = selectionStrategy->selectableGate(k);
-            check_and_cast<IPassiveQueue *>(gate->getOwnerModule())->request(gate->getIndex());
+        // switch to the other queue if N customers are served
+        if (customersServedQ1 == N) {
+            fromQueue1 = false;  // toggle between queues
+            customersServedQ1 = 0;       // reset the counter
         }
+        else if (customersServedQ2 == N){
+            fromQueue1 = true;  // toggle between queues
+            customersServedQ2 = 0;       // reset the counter
+        }
+
+        // select the next queue based on the current state
+        int k = fromQueue1 ? 0 : 2;  // queue index
+        if (fromQueue1) {
+            //std::cout << "Il numero di clienti serviti in Q1 è: " << customersServedQ1 << std::endl;
+            EV << "Switching to Queue 1" << endl;
+        } else {
+            //std::cout << "Il numero di clienti serviti in Q2 è: " << customersServedQ2 << std::endl;
+            EV << "Switching to Queue 2" << endl;
+        }
+
+        std::cout << "Sta venendo servita la coda Q" << k+1 << std::endl;
+        cGate *gate = selectionStrategy->selectableGate(k);
+        check_and_cast<IPassiveQueue *>(gate->getOwnerModule())->request(gate->getIndex());
     }
     else {
         if (!allocated)
@@ -67,8 +90,17 @@ void Server::handleMessage(cMessage *msg)
         simtime_t serviceTime = par("serviceTime");
         scheduleAt(simTime()+serviceTime, endServiceMsg);
         emit(busySignal, true);
+
+        // increase the number of customers served from the current queue
+        if (fromQueue1){
+            customersServedQ1++;
+        }
+        else{
+            customersServedQ2++;
+        }
     }
 }
+
 
 void Server::refreshDisplay() const
 {
@@ -90,4 +122,5 @@ void Server::allocate()
 }
 
 }; //namespace
+
 

@@ -1,8 +1,8 @@
 version 3
-run General-0-20240317-14:51:40-21900
+run General-0-20240317-16:41:58-26476
 attr configname General
-attr datetime 20240317-14:51:40
-attr datetimef 20240317-145140
+attr datetime 20240317-16:41:58
+attr datetimef 20240317-164158
 attr experiment General
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -10,7 +10,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network TandemQueueSystem
-attr processid 21900
+attr processid 26476
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -35,7 +35,7 @@ par TandemQueueSystem.Source startTime 0s
 attr unit s
 par TandemQueueSystem.Source stopTime -1s
 attr unit s
-scalar TandemQueueSystem.Source created:last 41
+scalar TandemQueueSystem.Source created:last 20
 attr interpolationmode none
 attr recordingmode last
 attr title "the number of jobs created, last"
@@ -50,66 +50,66 @@ attr recordingmode timeavg
 attr title "server busy state, timeavg"
 par TandemQueueSystem.sink typename "\"simu.Qlib_Custom.Sink\""
 par TandemQueueSystem.sink keepJobs false
-scalar TandemQueueSystem.sink generation:mean nan
+scalar TandemQueueSystem.sink generation:mean 0
 attr interpolationmode none
 attr recordingmode mean
 attr title "the generation of the arrived jobs, mean"
-scalar TandemQueueSystem.sink generation:max nan
+scalar TandemQueueSystem.sink generation:max 0
 attr interpolationmode none
 attr recordingmode max
 attr title "the generation of the arrived jobs, max"
-scalar TandemQueueSystem.sink delaysVisited:mean nan
+scalar TandemQueueSystem.sink delaysVisited:mean 0
 attr interpolationmode none
 attr recordingmode mean
 attr title "the total number of delays visited by arrived jobs, mean"
-scalar TandemQueueSystem.sink delaysVisited:max nan
+scalar TandemQueueSystem.sink delaysVisited:max 0
 attr interpolationmode none
 attr recordingmode max
 attr title "the total number of delays visited by arrived jobs, max"
-scalar TandemQueueSystem.sink queuesVisited:mean nan
+scalar TandemQueueSystem.sink queuesVisited:mean 3.3333333333333
 attr interpolationmode none
 attr recordingmode mean
 attr title "the total number of queues visited by arrived jobs, mean"
-scalar TandemQueueSystem.sink queuesVisited:max nan
+scalar TandemQueueSystem.sink queuesVisited:max 4
 attr interpolationmode none
 attr recordingmode max
 attr title "the total number of queues visited by arrived jobs, max"
-scalar TandemQueueSystem.sink totalServiceTime:mean nan
+scalar TandemQueueSystem.sink totalServiceTime:mean 0
 attr interpolationmode none
 attr recordingmode mean
 attr title "the total time spent  by arrived jobs, mean"
 attr unit s
-scalar TandemQueueSystem.sink totalServiceTime:max nan
+scalar TandemQueueSystem.sink totalServiceTime:max 0
 attr interpolationmode none
 attr recordingmode max
 attr title "the total time spent  by arrived jobs, max"
 attr unit s
-scalar TandemQueueSystem.sink totalDelayTime:mean nan
+scalar TandemQueueSystem.sink totalDelayTime:mean 0
 attr interpolationmode none
 attr recordingmode mean
 attr title "the total time spent in delay nodes by arrived jobs, mean"
 attr unit s
-scalar TandemQueueSystem.sink totalDelayTime:max nan
+scalar TandemQueueSystem.sink totalDelayTime:max 0
 attr interpolationmode none
 attr recordingmode max
 attr title "the total time spent in delay nodes by arrived jobs, max"
 attr unit s
-scalar TandemQueueSystem.sink totalQueueingTime:mean nan
+scalar TandemQueueSystem.sink totalQueueingTime:mean 0
 attr interpolationmode none
 attr recordingmode mean
 attr title "the total time spent in queues by arrived jobs, mean"
 attr unit s
-scalar TandemQueueSystem.sink totalQueueingTime:max nan
+scalar TandemQueueSystem.sink totalQueueingTime:max 0
 attr interpolationmode none
 attr recordingmode max
 attr title "the total time spent in queues by arrived jobs, max"
 attr unit s
-scalar TandemQueueSystem.sink lifeTime:mean nan
+scalar TandemQueueSystem.sink lifeTime:mean 0
 attr interpolationmode none
 attr recordingmode mean
 attr title "lifetime of arrived jobs, mean"
 attr unit s
-scalar TandemQueueSystem.sink lifeTime:max nan
+scalar TandemQueueSystem.sink lifeTime:max 0
 attr interpolationmode none
 attr recordingmode max
 attr title "lifetime of arrived jobs, max"
@@ -133,7 +133,7 @@ scalar TandemQueueSystem.Q1 queueLength:timeavg nan
 attr interpolationmode sample-hold
 attr recordingmode timeavg
 attr title "queue length, timeavg"
-scalar TandemQueueSystem.Q1 queueLength:max 20
+scalar TandemQueueSystem.Q1 queueLength:max 13
 attr interpolationmode sample-hold
 attr recordingmode max
 attr title "queue length, max"
@@ -146,12 +146,12 @@ par TandemQueueSystem.Q2 capacity -1
 par TandemQueueSystem.Q2 fifo true
 par TandemQueueSystem.Q2 sendingAlgorithm "\"priority\""
 attr enum priority,random,roundRobin,minDelay
-scalar TandemQueueSystem.Q2 queueingTime:mean nan
+scalar TandemQueueSystem.Q2 queueingTime:mean 0
 attr interpolationmode none
 attr recordingmode mean
 attr title "queueing time at dequeue, mean"
 attr unit s
-scalar TandemQueueSystem.Q2 queueingTime:max nan
+scalar TandemQueueSystem.Q2 queueingTime:max 0
 attr interpolationmode none
 attr recordingmode max
 attr title "queueing time at dequeue, max"
@@ -160,7 +160,7 @@ scalar TandemQueueSystem.Q2 queueLength:timeavg nan
 attr interpolationmode sample-hold
 attr recordingmode timeavg
 attr title "queue length, timeavg"
-scalar TandemQueueSystem.Q2 queueLength:max 19
+scalar TandemQueueSystem.Q2 queueLength:max 4
 attr interpolationmode sample-hold
 attr recordingmode max
 attr title "queue length, max"
