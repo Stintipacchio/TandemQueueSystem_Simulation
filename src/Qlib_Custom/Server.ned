@@ -26,7 +26,7 @@ simple Server
         volatile double serviceTime @unit(s); // service time of a job
     gates:
         input in[];
-        output out1;
+        output out;
         output out2;
 }
 

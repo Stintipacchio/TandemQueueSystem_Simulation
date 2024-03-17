@@ -31,6 +31,5 @@ simple Queue
         volatile double serviceTime @unit(s);
     gates:
         input in[];
-        output out1;
-        output out2;
+        output out;
 }

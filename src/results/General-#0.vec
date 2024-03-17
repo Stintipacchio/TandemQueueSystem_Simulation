@@ -1,8 +1,8 @@
 version 3
-run General-0-20240314-22:25:11-12592
+run General-0-20240317-14:51:40-21900
 attr configname General
-attr datetime 20240314-22:25:11
-attr datetimef 20240314-222511
+attr datetime 20240317-14:51:40
+attr datetimef 20240317-145140
 attr experiment General
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -10,7 +10,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network TandemQueueSystem
-attr processid 12592
+attr processid 21900
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -27,5 +27,82 @@ attr interpolationmode sample-hold
 attr recordingmode vector
 attr title "queue length"
 0	0	0	0
+0	5	0	1
+0	8	0	2
+0	9	0	1
+0	11	0	2
+0	15	0	3
+0	16	0	2
+0	18	0	3
+0	22	0	4
+0	23	0	3
+0	25	0	4
+0	29	0	5
+0	30	0	4
+0	32	0	5
+0	36	0	6
+0	37	0	5
+0	39	0	6
+0	43	0	7
+0	44	0	6
+0	46	0	7
+0	50	0	8
+0	51	0	7
+0	53	0	8
+0	57	0	9
+0	58	0	8
+0	60	0	9
+0	64	0	10
+0	65	0	9
+0	67	0	10
+0	71	0	11
+0	72	0	10
+0	74	0	11
+0	78	0	12
+0	79	0	11
+0	81	0	12
+0	85	0	13
+0	86	0	12
+0	88	0	13
+0	92	0	14
+0	93	0	13
+0	95	0	14
+0	99	0	15
+0	100	0	14
+0	102	0	15
+0	106	0	16
+0	107	0	15
+0	109	0	16
+0	113	0	17
+0	114	0	16
+0	116	0	17
+0	120	0	18
+0	121	0	17
+0	123	0	18
+0	127	0	19
+0	128	0	18
+0	130	0	19
+0	134	0	20
+0	135	0	19
+0	137	0	20
 1	0	0	0
+1	12	0	1
+1	19	0	2
+1	26	0	3
+1	33	0	4
+1	40	0	5
+1	47	0	6
+1	54	0	7
+1	61	0	8
+1	68	0	9
+1	75	0	10
+1	82	0	11
+1	89	0	12
+1	96	0	13
+1	103	0	14
+1	110	0	15
+1	117	0	16
+1	124	0	17
+1	131	0	18
+1	138	0	19
 

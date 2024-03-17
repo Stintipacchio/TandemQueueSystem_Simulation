@@ -11,6 +11,7 @@
 #include "Job.h"
 #include "SelectionStrategies.h"
 #include "IPassiveQueue.h"
+#include <iostream>
 
 namespace queueing {
 
