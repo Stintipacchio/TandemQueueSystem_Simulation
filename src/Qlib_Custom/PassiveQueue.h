@@ -47,6 +47,7 @@ class QUEUEING_API PassiveQueue : public cSimpleModule, public IPassiveQueue
         // The following methods are called from IServer:
         virtual int length() override;
         virtual void request(int gateIndex) override;
+        virtual bool isEmptyQueue() const;
 };
 
 }; //namespace

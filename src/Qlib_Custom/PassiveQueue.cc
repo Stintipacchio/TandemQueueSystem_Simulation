@@ -110,5 +110,9 @@ void PassiveQueue::sendJob(Job *job, int gateIndex)
     check_and_cast<IServer *>(out->getPathEndGate()->getOwnerModule())->allocate();
 }
 
+bool PassiveQueue::isEmptyQueue() const {
+    return queue.isEmpty();
+}
+
 }; //namespace
 
