@@ -1,8 +1,8 @@
 version 3
-run General-0-20240317-16:41:58-26476
+run General-0-20240326-17:29:45-26236
 attr configname General
-attr datetime 20240317-16:41:58
-attr datetimef 20240317-164158
+attr datetime 20240326-17:29:45
+attr datetimef 20240326-172945
 attr experiment General
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -10,7 +10,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network TandemQueueSystem
-attr processid 26476
+attr processid 26236
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -35,7 +35,7 @@ par TandemQueueSystem.Source startTime 0s
 attr unit s
 par TandemQueueSystem.Source stopTime -1s
 attr unit s
-scalar TandemQueueSystem.Source created:last 20
+scalar TandemQueueSystem.Source created:last 26
 attr interpolationmode none
 attr recordingmode last
 attr title "the number of jobs created, last"
@@ -66,7 +66,7 @@ scalar TandemQueueSystem.sink delaysVisited:max 0
 attr interpolationmode none
 attr recordingmode max
 attr title "the total number of delays visited by arrived jobs, max"
-scalar TandemQueueSystem.sink queuesVisited:mean 3.3333333333333
+scalar TandemQueueSystem.sink queuesVisited:mean 3.6
 attr interpolationmode none
 attr recordingmode mean
 attr title "the total number of queues visited by arrived jobs, mean"
@@ -133,7 +133,7 @@ scalar TandemQueueSystem.Q1 queueLength:timeavg nan
 attr interpolationmode sample-hold
 attr recordingmode timeavg
 attr title "queue length, timeavg"
-scalar TandemQueueSystem.Q1 queueLength:max 13
+scalar TandemQueueSystem.Q1 queueLength:max 17
 attr interpolationmode sample-hold
 attr recordingmode max
 attr title "queue length, max"

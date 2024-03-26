@@ -36,9 +36,37 @@ void Server::initialize()
     if (!selectionStrategy)
         throw cRuntimeError("invalid selection strategy");
 
+    N = 5;
+
     customersServedQ1 = 0;
     customersServedQ2 = 0;
+
     fromQueue1 = true;  // Start serving from Queue 1
+}
+
+int Exact_N(int N, int *customersServedQ1, int *customersServedQ2, bool *fromQueue1){
+    // switch to the other queue if N customers are served
+    if (*customersServedQ1 == N) {
+        *fromQueue1 = false;  // toggle between queues
+        *customersServedQ1 = 0;       // reset the counter
+    }
+    else if (*customersServedQ2 == N){
+        *fromQueue1 = true;  // toggle between queues
+        *customersServedQ2 = 0;       // reset the counter
+    }
+
+    // select the next queue based on the current state
+    int k = *fromQueue1 ? 0 : 2;  // queue index
+    if (*fromQueue1) {
+        //std::cout << "Il numero di clienti serviti in Q1 è: " << customersServedQ1 << std::endl;
+        EV << "Switching to Queue 1" << endl;
+    } else {
+        //std::cout << "Il numero di clienti serviti in Q2 è: " << customersServedQ2 << std::endl;
+        EV << "Switching to Queue 2" << endl;
+    }
+
+    return k;
+
 }
 
 void Server::handleMessage(cMessage *msg)
@@ -56,29 +84,21 @@ void Server::handleMessage(cMessage *msg)
         allocated = false;
         emit(busySignal, false);
 
-        // switch to the other queue if N customers are served
-        if (customersServedQ1 == N) {
-            fromQueue1 = false;  // toggle between queues
-            customersServedQ1 = 0;       // reset the counter
-        }
-        else if (customersServedQ2 == N){
-            fromQueue1 = true;  // toggle between queues
-            customersServedQ2 = 0;       // reset the counter
-        }
+        int k = Exact_N(N, &customersServedQ1, &customersServedQ2, &fromQueue1);
 
-        // select the next queue based on the current state
-        int k = fromQueue1 ? 0 : 2;  // queue index
-        if (fromQueue1) {
-            //std::cout << "Il numero di clienti serviti in Q1 è: " << customersServedQ1 << std::endl;
-            EV << "Switching to Queue 1" << endl;
-        } else {
-            //std::cout << "Il numero di clienti serviti in Q2 è: " << customersServedQ2 << std::endl;
-            EV << "Switching to Queue 2" << endl;
-        }
+        int servingQueue = 1;
 
-        std::cout << "Sta venendo servita la coda Q" << k+1 << std::endl;
+            if (k == 0){
+                servingQueue = 1;
+            }
+            else{
+                servingQueue = 2;
+            }
+
+        std::cout << "Sta venendo servita la coda Q" << servingQueue << std::endl;
         cGate *gate = selectionStrategy->selectableGate(k);
         check_and_cast<IPassiveQueue *>(gate->getOwnerModule())->request(gate->getIndex());
+
     }
     else {
         if (!allocated)

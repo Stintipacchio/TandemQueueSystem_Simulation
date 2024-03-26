@@ -37,7 +37,7 @@ class QUEUEING_API Server : public cSimpleModule, public IServer
         int customersServedQ1;  // Variable to keep track of the number of customers served in Q1
         int customersServedQ2;  // Variable to keep track of the number of customers served in Q2
         bool fromQueue1;      // Variable to indicate whether the server is currently serving Queue 1 or Queue 2
-        static const int N = 5;  // Number of customers to be served from each queue
+        int N;  // Number of customers to be served from each queue
 
     public:
         virtual ~Server();
