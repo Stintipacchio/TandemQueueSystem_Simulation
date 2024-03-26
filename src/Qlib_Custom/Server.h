@@ -38,6 +38,8 @@ class QUEUEING_API Server : public cSimpleModule, public IServer
         int customersServedQ2;  // Variable to keep track of the number of customers served in Q2
         bool fromQueue1;      // Variable to indicate whether the server is currently serving Queue 1 or Queue 2
         int N;  // Number of customers to be served from each queue
+        bool isQ1Empty;
+        bool isQ2Empty;
 
     public:
         virtual ~Server();
@@ -52,6 +54,7 @@ class QUEUEING_API Server : public cSimpleModule, public IServer
     public:
         virtual bool isIdle() override;
         virtual void allocate() override;
+        virtual void deallocate();
 };
 
 }; //namespace

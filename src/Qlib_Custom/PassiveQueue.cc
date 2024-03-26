@@ -10,6 +10,9 @@
 #include "PassiveQueue.h"
 #include "Job.h"
 #include "IServer.h"
+#include "Server.h"
+#include <string>
+#include <iostream>
 
 namespace queueing {
 
@@ -39,6 +42,24 @@ void PassiveQueue::initialize()
 
 void PassiveQueue::handleMessage(cMessage *msg)
 {
+    // Check if the queue was empty before entering the job
+    int oldLength = length(); // Stores the current length of the queue
+
+    std::string str1 = getFullName();
+    std::string str2 = "Q1";
+    int result = str1.compare(str2);
+
+    if (oldLength == 0 && result == 0) {
+        // Find the server connected to Q1 and set its allocate field to false
+        cModule *serverModule = getParentModule()->getSubmodule("Server");
+        if (serverModule) {
+            Server *server = check_and_cast<Server *>(serverModule);
+            server->deallocate();
+        } else {
+            EV << "Server module not found!" << endl;
+        }
+    }
+
     Job *job = check_and_cast<Job *>(msg);
     job->setTimestamp();
 

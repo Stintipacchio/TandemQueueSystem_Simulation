@@ -73,48 +73,43 @@ int Exact_N(int N, int *customersServedQ1, int *customersServedQ2, bool *fromQue
 void Server::handleMessage(cMessage *msg)
 {
 
-    bool isQ1Empty;
-    bool isQ2Empty;
+    PassiveQueue *Q1 = dynamic_cast<PassiveQueue *>(getModuleByPath("^.Q1"));
+
+    if (!Q1) {
+        EV << "Error: Unable to find Q1!" << endl;
+        // Error handling if Q1 is not found
+        }
+    else {
+        // Now you can call the isEmptyQueue() method on q1 and use the returned value as you wish
+        isQ1Empty = Q1->isEmptyQueue();
+        // You can use the isQ1Empty variable as you wish, for example, printing a message
+          if (isQ1Empty) {
+              EV << "Q1 is empty!" << endl;
+          }
+          else {
+              EV << "Q1 is not empty." << endl;
+          }
+    }
+
+    PassiveQueue *Q2 = dynamic_cast<PassiveQueue *>(getModuleByPath("^.Q2"));
+
+    if (!Q2) {
+        EV << "Error: Unable to find Q1!" << endl;
+        // Error handling if Q1 is not found
+        }
+    else {
+        // Now you can call the isEmptyQueue() method on q1 and use the returned value as you wish
+        isQ2Empty = Q2->isEmptyQueue();
+        // You can use the isQ1Empty variable as you wish, for example, printing a message
+          if (isQ2Empty) {
+              EV << "Q2 is empty!" << endl;
+          }
+          else {
+              EV << "Q2 is not empty." << endl;
+          }
+    }
 
     if (msg == endServiceMsg) {
-
-        PassiveQueue *Q1 = dynamic_cast<PassiveQueue *>(getModuleByPath("^.Q1"));
-
-        if (!Q1) {
-            EV << "Error: Unable to find Q1!" << endl;
-            // Error handling if Q1 is not found
-            }
-        else {
-            // Now you can call the isEmptyQueue() method on q1 and use the returned value as you wish
-            isQ1Empty = Q1->isEmptyQueue();
-            // You can use the isQ1Empty variable as you wish, for example, printing a message
-              if (isQ1Empty) {
-                  EV << "Q1 is empty!" << endl;
-              }
-              else {
-                  EV << "Q1 is not empty." << endl;
-              }
-        }
-
-        PassiveQueue *Q2 = dynamic_cast<PassiveQueue *>(getModuleByPath("^.Q2"));
-
-        if (!Q2) {
-            EV << "Error: Unable to find Q1!" << endl;
-            // Error handling if Q1 is not found
-            }
-        else {
-            // Now you can call the isEmptyQueue() method on q1 and use the returned value as you wish
-            isQ2Empty = Q2->isEmptyQueue();
-            // You can use the isQ1Empty variable as you wish, for example, printing a message
-              if (isQ2Empty) {
-                  EV << "Q2 is empty!" << endl;
-              }
-              else {
-                  EV << "Q2 is not empty." << endl;
-              }
-        }
-
-
 
         ASSERT(jobServiced != nullptr);
         ASSERT(allocated);
@@ -125,26 +120,26 @@ void Server::handleMessage(cMessage *msg)
         else
             send(jobServiced, "out2");
         jobServiced = nullptr;
-        allocated = false;
-        emit(busySignal, false);
 
+        if(!isQ1Empty){
+            allocated = false;
+            emit(busySignal, false);
 
+            int k = Exact_N(N, &customersServedQ1, &customersServedQ2, &fromQueue1);
 
+            int servingQueue = 1;
 
-        int k = Exact_N(N, &customersServedQ1, &customersServedQ2, &fromQueue1);
+            if (k == 0){
+                servingQueue = 1;
+            }
+            else{
+                servingQueue = 2;
+            }
 
-        int servingQueue = 1;
-
-        if (k == 0){
-            servingQueue = 1;
+            std::cout << "Sta venendo servita la coda Q" << servingQueue << std::endl;
+            cGate *gate = selectionStrategy->selectableGate(k);
+            check_and_cast<PassiveQueue *>(gate->getOwnerModule())->request(gate->getIndex());
         }
-        else{
-            servingQueue = 2;
-        }
-
-        std::cout << "Sta venendo servita la coda Q" << servingQueue << std::endl;
-        cGate *gate = selectionStrategy->selectableGate(k);
-        check_and_cast<PassiveQueue *>(gate->getOwnerModule())->request(gate->getIndex());
 
     }
     else {
@@ -187,6 +182,11 @@ bool Server::isIdle()
 void Server::allocate()
 {
     allocated = true;
+}
+
+void Server::deallocate()
+{
+    allocated = false;
 }
 
 }; //namespace
