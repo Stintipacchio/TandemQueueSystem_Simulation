@@ -40,6 +40,7 @@ class QUEUEING_API Server : public cSimpleModule, public IServer
         int N;  // Number of customers to be served from each queue
         bool isQ1Empty;
         bool isQ2Empty;
+        bool free;
 
     public:
         virtual ~Server();
@@ -55,6 +56,7 @@ class QUEUEING_API Server : public cSimpleModule, public IServer
         virtual bool isIdle() override;
         virtual void allocate() override;
         virtual void deallocate();
+        virtual bool isFree();
 };
 
 }; //namespace

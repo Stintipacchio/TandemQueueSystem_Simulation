@@ -43,6 +43,7 @@ void Server::initialize()
     customersServedQ2 = 0;
 
     fromQueue1 = true;  // Start serving from Queue 1
+    free = false;
 }
 
 int Exact_N(int N, int *customersServedQ1, int *customersServedQ2, bool *fromQueue1){
@@ -72,6 +73,7 @@ int Exact_N(int N, int *customersServedQ1, int *customersServedQ2, bool *fromQue
 
 void Server::handleMessage(cMessage *msg)
 {
+    free = false;
 
     PassiveQueue *Q1 = dynamic_cast<PassiveQueue *>(getModuleByPath("^.Q1"));
 
@@ -121,11 +123,13 @@ void Server::handleMessage(cMessage *msg)
             send(jobServiced, "out2");
         jobServiced = nullptr;
 
-        if(!isQ1Empty){
+        int k = Exact_N(N, &customersServedQ1, &customersServedQ2, &fromQueue1);
+
+        if(!isQ1Empty || k == 2){
+
+            EV << "AAAAAAAAAAAAAAAAAAAAAAAA" << endl;
             allocated = false;
             emit(busySignal, false);
-
-            int k = Exact_N(N, &customersServedQ1, &customersServedQ2, &fromQueue1);
 
             int servingQueue = 1;
 
@@ -136,10 +140,12 @@ void Server::handleMessage(cMessage *msg)
                 servingQueue = 2;
             }
 
-            std::cout << "Sta venendo servita la coda Q" << servingQueue << std::endl;
+            EV << "Sta venendo servita la coda Q" << servingQueue << endl;
             cGate *gate = selectionStrategy->selectableGate(k);
             check_and_cast<PassiveQueue *>(gate->getOwnerModule())->request(gate->getIndex());
         }
+        else free = true;
+
 
     }
     else {
@@ -177,6 +183,11 @@ void Server::finish()
 bool Server::isIdle()
 {
     return !allocated;  // we are idle if nobody has allocated us for processing
+}
+
+bool Server::isFree()
+{
+    return free;
 }
 
 void Server::allocate()

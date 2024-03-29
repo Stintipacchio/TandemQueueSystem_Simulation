@@ -49,12 +49,19 @@ void PassiveQueue::handleMessage(cMessage *msg)
     std::string str2 = "Q1";
     int result = str1.compare(str2);
 
-    if (oldLength == 0 && result == 0) {
+    if (result == 0) {
         // Find the server connected to Q1 and set its allocate field to false
         cModule *serverModule = getParentModule()->getSubmodule("Server");
         if (serverModule) {
             Server *server = check_and_cast<Server *>(serverModule);
-            server->deallocate();
+            if(server->isIdle() || server->isFree()){
+                EV << "LIBERO" << endl;
+                server->deallocate();
+            }
+            else{
+                EV << "OCCUPATO" << endl;
+                server->allocate();
+            }
         } else {
             EV << "Server module not found!" << endl;
         }
