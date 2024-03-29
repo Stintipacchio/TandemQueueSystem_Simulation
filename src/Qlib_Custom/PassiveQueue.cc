@@ -55,11 +55,11 @@ void PassiveQueue::handleMessage(cMessage *msg)
         if (serverModule) {
             Server *server = check_and_cast<Server *>(serverModule);
             if(server->isIdle() || server->isFree()){
-                EV << "LIBERO" << endl;
+                //EV << "LIBERO" << endl;
                 server->deallocate();
             }
             else{
-                EV << "OCCUPATO" << endl;
+                //EV << "OCCUPATO" << endl;
                 server->allocate();
             }
         } else {

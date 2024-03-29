@@ -59,13 +59,13 @@ int Exact_N(int N, int *customersServedQ1, int *customersServedQ2, bool *fromQue
 
     // select the next queue based on the current state
     int k = *fromQueue1 ? 0 : 2;  // queue index
-    if (*fromQueue1) {
-        //std::cout << "Il numero di clienti serviti in Q1 è: " << customersServedQ1 << std::endl;
-        EV << "Switching to Queue 1" << endl;
-    } else {
-        //std::cout << "Il numero di clienti serviti in Q2 è: " << customersServedQ2 << std::endl;
-        EV << "Switching to Queue 2" << endl;
-    }
+//    if (*fromQueue1) {
+//        //std::cout << "Il numero di clienti serviti in Q1 è: " << customersServedQ1 << std::endl;
+//        EV << "Switching to Queue 1" << endl;
+//    } else {
+//        //std::cout << "Il numero di clienti serviti in Q2 è: " << customersServedQ2 << std::endl;
+//        EV << "Switching to Queue 2" << endl;
+//    }
 
     return k;
 
@@ -85,31 +85,31 @@ void Server::handleMessage(cMessage *msg)
         // Now you can call the isEmptyQueue() method on q1 and use the returned value as you wish
         isQ1Empty = Q1->isEmptyQueue();
         // You can use the isQ1Empty variable as you wish, for example, printing a message
-          if (isQ1Empty) {
-              EV << "Q1 is empty!" << endl;
-          }
-          else {
-              EV << "Q1 is not empty." << endl;
-          }
+//          if (isQ1Empty) {
+//              EV << "Q1 is empty!" << endl;
+//          }
+//          else {
+//              EV << "Q1 is not empty." << endl;
+//          }
     }
 
-    PassiveQueue *Q2 = dynamic_cast<PassiveQueue *>(getModuleByPath("^.Q2"));
-
-    if (!Q2) {
-        EV << "Error: Unable to find Q1!" << endl;
-        // Error handling if Q1 is not found
-        }
-    else {
-        // Now you can call the isEmptyQueue() method on q1 and use the returned value as you wish
-        isQ2Empty = Q2->isEmptyQueue();
-        // You can use the isQ1Empty variable as you wish, for example, printing a message
-          if (isQ2Empty) {
-              EV << "Q2 is empty!" << endl;
-          }
-          else {
-              EV << "Q2 is not empty." << endl;
-          }
-    }
+//    PassiveQueue *Q2 = dynamic_cast<PassiveQueue *>(getModuleByPath("^.Q2"));
+//
+//    if (!Q2) {
+//        EV << "Error: Unable to find Q1!" << endl;
+//        // Error handling if Q1 is not found
+//        }
+//    else {
+//        // Now you can call the isEmptyQueue() method on q1 and use the returned value as you wish
+//        isQ2Empty = Q2->isEmptyQueue();
+//        // You can use the isQ1Empty variable as you wish, for example, printing a message
+//          if (isQ2Empty) {
+//              EV << "Q2 is empty!" << endl;
+//          }
+//          else {
+//              EV << "Q2 is not empty." << endl;
+//          }
+//    }
 
     if (msg == endServiceMsg) {
 
@@ -127,7 +127,6 @@ void Server::handleMessage(cMessage *msg)
 
         if(!isQ1Empty || k == 2){
 
-            EV << "AAAAAAAAAAAAAAAAAAAAAAAA" << endl;
             allocated = false;
             emit(busySignal, false);
 
