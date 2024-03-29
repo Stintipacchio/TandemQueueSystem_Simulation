@@ -47,9 +47,9 @@ void PassiveQueue::handleMessage(cMessage *msg)
 
     std::string str1 = getFullName();
     std::string str2 = "Q1";
-    int result = str1.compare(str2);
+    int isQ1 = str1.compare(str2);
 
-    if (result == 0) {
+    if (isQ1 == 0) {
         // Find the server connected to Q1 and set its allocate field to false
         cModule *serverModule = getParentModule()->getSubmodule("Server");
         if (serverModule) {
@@ -66,6 +66,28 @@ void PassiveQueue::handleMessage(cMessage *msg)
             EV << "Server module not found!" << endl;
         }
     }
+
+//    std::string str3 = getFullName();
+//    std::string str4 = "Q1";
+//    int isQ2 = str3.compare(str4);
+//
+//    if (isQ2 == 0) {
+//        // Find the server connected to Q2 and set its allocate field to false
+//        cModule *serverModule = getParentModule()->getSubmodule("Server");
+//        if (serverModule) {
+//            Server *server = check_and_cast<Server *>(serverModule);
+//            if(server->isIdle() || server->isFree()){
+//                EV << "LIBERO Q2" << endl;
+//                server->deallocate();
+//            }
+//            else{
+//                EV << "OCCUPATO Q2" << endl;
+//                server->allocate();
+//            }
+//        } else {
+//            EV << "Server module not found!" << endl;
+//        }
+//    }
 
     Job *job = check_and_cast<Job *>(msg);
     job->setTimestamp();
