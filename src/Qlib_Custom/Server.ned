@@ -24,6 +24,9 @@ simple Server
         string fetchingAlgorithm @enum("priority","random","roundRobin","longestQueue") = default("priority");
              // how the next job will be choosen from the attached queues
         volatile double serviceTime @unit(s); // service time of a job
+        volatile int N;
+        volatile double pDistribution;
+        volatile double vDistribution;
     gates:
         input in[];
         output out;

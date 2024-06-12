@@ -37,7 +37,8 @@ void Server::initialize()
     if (!selectionStrategy)
         throw cRuntimeError("invalid selection strategy");
 
-    N = 5;
+    pDistribution = par("pDistribution");
+    vDistribution = par("vDistribution");
 
     customersServedQ1 = 0;
     customersServedQ2 = 0;
@@ -160,7 +161,7 @@ void Server::handleMessage(cMessage *msg)
         jobServiced->setTotalServiceTime(jobServiced->getTotalServiceTime() + d);
 
         if (!fromQueue1) { // If the job is going to the sink
-            jobServiced->V = uniform(14, 22);
+            jobServiced->V = vDistribution;
             EV << "V è: " << jobServiced->V << endl;
         }
 
@@ -214,7 +215,7 @@ void Server::handleMessage(cMessage *msg)
         jobServiced = check_and_cast<Job *>(msg);
 
         if (fromQueue1) {
-            jobServiced->P = uniform(1, 10);
+            jobServiced->P = pDistribution;
             EV << "P è: " << jobServiced->P << endl;
         }
 

@@ -43,6 +43,8 @@ class QUEUEING_API Server : public cSimpleModule, public IServer
         bool free;
         int customersServedQ1buffer;
         int strategy;
+        double pDistribution;
+        double vDistribution;
 
     public:
         virtual ~Server();
