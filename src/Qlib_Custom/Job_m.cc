@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by opp_msgtool 6.0 from Qlib_Custom/Job.msg.
+// Generated file, do not edit! Created by opp_msgtool 6.0 from Job.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:

@@ -1,3 +1,12 @@
+//
+// This file is part of an OMNeT++/OMNEST simulation example.
+//
+// Copyright (C) 2006-2015 OpenSim Ltd.
+//
+// This file is distributed WITHOUT ANY WARRANTY. See the file
+// `license' for details on this and other legal matters.
+//
+
 #include "Server.h"
 #include "Job.h"
 #include "SelectionStrategies.h"
@@ -37,7 +46,7 @@ void Server::initialize()
     free = false;
 
     customersServedQ1buffer = 0;
-    strategy = 0;
+    strategy = 1;
 }
 
 int Exact_N(int N, int *customersServedQ1, int *customersServedQ2, bool *fromQueue1){
@@ -53,6 +62,13 @@ int Exact_N(int N, int *customersServedQ1, int *customersServedQ2, bool *fromQue
 
     // select the next queue based on the current state
     int k = *fromQueue1 ? 0 : 2;  // queue index
+//    if (*fromQueue1) {
+//        //std::cout << "Il numero di clienti serviti in Q1 è: " << customersServedQ1 << std::endl;
+//        EV << "Switching to Queue 1" << endl;
+//    } else {
+//        //std::cout << "Il numero di clienti serviti in Q2 è: " << customersServedQ2 << std::endl;
+//        EV << "Switching to Queue 2" << endl;
+//    }
 
     return k;
 
@@ -73,6 +89,13 @@ int N_Limited(int N, int *customersServedQ1, int *customersServedQ2, bool *fromQ
 
     // select the next queue based on the current state
     int k = *fromQueue1 ? 0 : 2;  // queue index
+    if (*fromQueue1) {
+        //std::cout << "Il numero di clienti serviti in Q1 è: " << customersServedQ1 << std::endl;
+        EV << "Switching to Queue 1" << endl;
+    } else {
+        //std::cout << "Il numero di clienti serviti in Q2 è: " << customersServedQ2 << std::endl;
+        EV << "Switching to Queue 2" << endl;
+    }
 
     return k;
 
@@ -87,38 +110,58 @@ bool checkEmptyQueue(PassiveQueue *Q, int num){
        else {
            // Now you can call the isEmptyQueue() method on q1 and use the returned value as you wish
            isQEmpty = Q->isEmptyQueue();
+           // You can use the isQ1Empty variable as you wish, for example, printing a message
+   //          if (isQ1Empty) {
+   //              EV << "Q1 is empty!" << endl;
+   //          }
+   //          else {
+   //              EV << "Q1 is not empty." << endl;
+   //          }
            return isQEmpty;
        }
     return -1;
 }
+
 
 void Server::handleMessage(cMessage *msg)
 {
     free = false;
 
     PassiveQueue *Q1 = dynamic_cast<PassiveQueue *>(getModuleByPath("^.Q1"));
+
     isQ1Empty = checkEmptyQueue(&*Q1, 1);
 
+
     PassiveQueue *Q2 = dynamic_cast<PassiveQueue *>(getModuleByPath("^.Q2"));
+
     isQ2Empty = checkEmptyQueue(&*Q2, 2);
 
+//    if (!Q2) {
+//        EV << "Error: Unable to find Q1!" << endl;
+//        // Error handling if Q1 is not found
+//        }
+//    else {
+//        // Now you can call the isEmptyQueue() method on q1 and use the returned value as you wish
+//        isQ2Empty = Q2->isEmptyQueue();
+//        // You can use the isQ1Empty variable as you wish, for example, printing a message
+//          if (isQ2Empty) {
+//              //EV << "Q2 is empty!" << endl;
+//          }
+//          else {
+//              //EV << "Q2 is not empty." << endl;
+//          }
+//    }
+
     if (msg == endServiceMsg) {
+
         ASSERT(jobServiced != nullptr);
         ASSERT(allocated);
         simtime_t d = simTime() - endServiceMsg->getSendingTime();
         jobServiced->setTotalServiceTime(jobServiced->getTotalServiceTime() + d);
-
-        if (!fromQueue1) { // If the job is going to the sink
-            jobServiced->V = uniform(14, 22);
-            EV << "V è: " << jobServiced->V << endl;
-        }
-
-        if (fromQueue1){
+        if (fromQueue1)
             send(jobServiced, "out");
-        }
-        else {
+        else
             send(jobServiced, "out2");
-        }
         jobServiced = nullptr;
 
         int k = 0;
@@ -129,6 +172,7 @@ void Server::handleMessage(cMessage *msg)
             k = N_Limited(N, &customersServedQ1, &customersServedQ2, &fromQueue1, &isQ1Empty, &isQ2Empty, &customersServedQ1buffer);
 
         if(!isQ1Empty || k == 2){
+
             allocated = false;
             emit(busySignal, false);
 
@@ -137,7 +181,7 @@ void Server::handleMessage(cMessage *msg)
             if (k == 0){
                 servingQueue = 1;
             }
-            else {
+            else{
                 servingQueue = 2;
             }
 
@@ -150,36 +194,33 @@ void Server::handleMessage(cMessage *msg)
                 check_and_cast<PassiveQueue *>(gate->getOwnerModule())->request(gate->getIndex());
             }
 
-        } else {
-            free = true;
         }
+        else free = true;
 
-    } else {
+
+    }
+    else {
         if (!allocated)
             error("job arrived, but the sender did not call allocate() previously");
         if (jobServiced)
             throw cRuntimeError("a new job arrived while already servicing one");
 
         jobServiced = check_and_cast<Job *>(msg);
-
-        if (fromQueue1) {
-            jobServiced->P = uniform(1, 10);
-            EV << "P è: " << jobServiced->P << endl;
-        }
-
         simtime_t serviceTime = par("serviceTime");
-        scheduleAt(simTime() + serviceTime, endServiceMsg);
+        scheduleAt(simTime()+serviceTime, endServiceMsg);
         emit(busySignal, true);
 
         // increase the number of customers served from the current queue
         if (fromQueue1){
             customersServedQ1++;
         }
-        else {
+        else{
             customersServedQ2++;
         }
+
     }
 }
+
 
 void Server::refreshDisplay() const
 {
@@ -210,4 +251,6 @@ void Server::deallocate()
     allocated = false;
 }
 
-}; // namespace
+}; //namespace
+
+
