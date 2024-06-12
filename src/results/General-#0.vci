@@ -1,9 +1,9 @@
-file 993 1711745928                                             
+file 1006 1718201277                                            
 version 3
-run General-0-20240329-21:58:10-27136
+run General-0-20240612-16:07:13-35332
 attr configname General
-attr datetime 20240329-21:58:10
-attr datetimef 20240329-215810
+attr datetime 20240612-16:07:13
+attr datetimef 20240612-160713
 attr experiment General
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -11,7 +11,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network TandemQueueSystem
-attr processid 27136
+attr processid 35332
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -27,12 +27,10 @@ vector 1 TandemQueueSystem.Q2 queueLength:vector ETV
 attr interpolationmode sample-hold
 attr recordingmode vector
 attr title "queue length"
-vector 2 TandemQueueSystem.sink lifeTime:vector ETV
-attr interpolationmode none
-attr recordingmode vector
-attr title "lifetime of arrived jobs"
-attr unit s
-0	920 9 0 0 0 0 1 0 0 0 0
-1	929 9 0 0 0 0 1 0 0 0 0
-2	938 53 8 40 6 22 5 2 2 10 20
+0	759 146 0 36 0 0 15 0 6 45 175
+1	905 59 0 37 0 0 6 0 4 13 39
+0	964 10 39 39 0 0 1 7 7 7 49
+1	974 10 40 40 0 0 1 4 4 4 16
+0	984 10 43 43 0 0 1 8 8 8 64
+1	994 10 44 44 0 0 1 3 3 3 9
 
