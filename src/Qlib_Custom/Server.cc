@@ -158,6 +158,12 @@ void Server::handleMessage(cMessage *msg)
         ASSERT(allocated);
         simtime_t d = simTime() - endServiceMsg->getSendingTime();
         jobServiced->setTotalServiceTime(jobServiced->getTotalServiceTime() + d);
+
+        if (!fromQueue1) { // If the job is going to the sink
+            jobServiced->V = uniform(14, 22);
+            EV << "V è: " << jobServiced->V << endl;
+        }
+
         if (fromQueue1)
             send(jobServiced, "out");
         else
@@ -206,6 +212,12 @@ void Server::handleMessage(cMessage *msg)
             throw cRuntimeError("a new job arrived while already servicing one");
 
         jobServiced = check_and_cast<Job *>(msg);
+
+        if (fromQueue1) {
+            jobServiced->P = uniform(1, 10);
+            EV << "P è: " << jobServiced->P << endl;
+        }
+
         simtime_t serviceTime = par("serviceTime");
         scheduleAt(simTime()+serviceTime, endServiceMsg);
         emit(busySignal, true);
