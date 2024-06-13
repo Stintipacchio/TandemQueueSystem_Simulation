@@ -1,31 +1,31 @@
-file 3018613 1718285023                                         
+file 2108266 1718313063                                         
 version 3
-run Config3-4-20240613-15:23:43-33224
-attr configname Config3
-attr datetime 20240613-15:23:43
-attr datetimef 20240613-152343
-attr experiment Config3
+run Config2880-19-20240613-23:11:03-28936
+attr configname Config2880
+attr datetime 20240613-23:11:03
+attr datetimef 20240613-231103
+attr experiment Config2880
 attr inifile ./omnetpp.ini
 attr iterationvars ""
 attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network TandemQueueSystem
-attr processid 33224
-attr repetition 4
-attr replication #4
+attr processid 28936
+attr repetition 19
+attr replication #19
 attr resultdir results
-attr runnumber 4
-attr seedset 4
+attr runnumber 19
+attr seedset 19
 config cmdenv-redirect-output true
-config description "Configurazione con lambda=2.0s, m1=0.4s, m2=0.4s"
-config **.lambda 2.0s
-config **.m1 0.4s
-config **.m2 0.4s
-config **.pDistribution "uniform(1, 3)"
-config **.vDistribution "uniform(14, 16)"
+config description "Configurazione con lambda=1.0s, m1=0.2s, m2=0.2s"
+config **.lambda 1.0s
+config **.m1 0.2s
+config **.m2 0.2s
+config **.pDistribution "uniform(8, 10)"
+config **.vDistribution "uniform(20, 22)"
 config **.cw 1.0
-config **.N 3
+config **.N 5
 config network TandemQueueSystem
 config sim-time-limit 100000s
 config warmup-period 1000s
@@ -37,19 +37,12 @@ config *.collector.vector-recording true
 config *.collector.scalar-recording true
 config *.collector.interval 1s
 
-vector 0 TandemQueueSystem.Q2 queueLength:vector ETV
+vector 0 TandemQueueSystem.Q1 queueLength:vector ETV
 attr interpolationmode sample-hold
 attr recordingmode vector
 attr title "queue length"
-vector 1 TandemQueueSystem.sink lifeTime:vector ETV
-attr interpolationmode none
-attr recordingmode vector
-attr title "lifetime of arrived jobs"
-attr unit s
-0	1367 620854 3994 135062 1000.4 33768.4 32768 0 2 38230 60076
-0	622221 655360 135063 266129 33768.4 66534.8 32768 0 2 38230 60076
-1	1277581 703646 4002 266133 1002.8 66535.2 32768 1.6 4.8 104859.20000002 391477.75999986
-0	1981227 655360 266132 397205 66535.2 99302.4 32768 0 2 38228 60072
-0	2636587 13920 397210 399989 99304.4 99998.4 696 0 2 812 1276
-1	2650507 368104 266136 399984 66535.6 99997.6 16732 1.6 4.8 53540.799999995 199882.23999999
+0	1221 666133 2030 67564 1000 33767 32768 995 33762 569458688 12828368814080
+0	667354 704679 67566 133100 33768 66535 32768 33763 66530 1643200512 85332785479680
+0	1372033 720896 133102 198636 66536 99303 32768 66531 99298 2716942336 2.2820594632294e+14
+0	2092929 15335 198638 200030 99304 100000 697 99299 99995 69453959 6920906869821
 

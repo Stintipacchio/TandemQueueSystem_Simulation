@@ -196,7 +196,15 @@ void Server::handleMessage(cMessage *msg)
             //EV << "Sta venendo servita la coda Q" << servingQueue << endl;
             cGate *gate = selectionStrategy->selectableGate(k);
 
-            if ((strategy == 0 || fromQueue1) && (k==2 && !isQ2Empty)){
+            if (N == 1){
+                if ((strategy == 0 || fromQueue1) && (k==2 && !isQ2Empty)){
+                    check_and_cast<PassiveQueue *>(gate->getOwnerModule())->request(gate->getIndex());
+                }
+                else if (!isQ2Empty && !fromQueue1){
+                    check_and_cast<PassiveQueue *>(gate->getOwnerModule())->request(gate->getIndex());
+                }
+            }
+            else if ((strategy == 0 || fromQueue1)){
                 check_and_cast<PassiveQueue *>(gate->getOwnerModule())->request(gate->getIndex());
             }
             else if (!isQ2Empty && !fromQueue1){

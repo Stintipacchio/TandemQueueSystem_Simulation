@@ -1,29 +1,29 @@
 version 3
-run Config1-0-20240613-16:29:46-35908
-attr configname Config1
-attr datetime 20240613-16:29:46
-attr datetimef 20240613-162946
-attr experiment Config1
+run Config2181-0-20240613-23:33:41-30888
+attr configname Config2181
+attr datetime 20240613-23:33:41
+attr datetimef 20240613-233341
+attr experiment Config2181
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network TandemQueueSystem
-attr processid 35908
+attr processid 30888
 attr repetition 0
 attr replication #0
 attr resultdir results
 attr runnumber 0
 attr seedset 0
-config description "Configurazione con lambda=2.0s, m1=0.4s, m2=0.4s"
-config **.lambda 2.0s
+config description "Configurazione con lambda=1.0s, m1=0.4s, m2=0.4s"
+config **.lambda 1.0s
 config **.m1 0.4s
 config **.m2 0.4s
-config **.pDistribution "uniform(1, 3)"
-config **.vDistribution "uniform(14, 16)"
+config **.pDistribution "uniform(4, 6)"
+config **.vDistribution "uniform(18, 20)"
 config **.cw 1.0
-config **.N 2
+config **.N 1
 config network TandemQueueSystem
 config sim-time-limit 100000s
 config warmup-period 1000s
@@ -43,12 +43,12 @@ par TandemQueueSystem.Q2.out[0].channel typename "\"ned.IdealChannel\""
 par TandemQueueSystem.Server.out2.channel typename "\"ned.IdealChannel\""
 par TandemQueueSystem.Source typename "\"simu.Qlib_Custom.Source\""
 par TandemQueueSystem.Source numJobs -1
-par TandemQueueSystem.Source lambda 2s
+par TandemQueueSystem.Source lambda 1s
 attr unit s
 par TandemQueueSystem.Source jobName "\"job\""
 par TandemQueueSystem.Source jobType 0
 par TandemQueueSystem.Source jobPriority 0
-par TandemQueueSystem.Source startTime 2s
+par TandemQueueSystem.Source startTime 1s
 attr unit s
 par TandemQueueSystem.Source stopTime -1s
 attr unit s
@@ -63,9 +63,9 @@ par TandemQueueSystem.Server m1 0.4s
 attr unit s
 par TandemQueueSystem.Server m2 0.4s
 attr unit s
-par TandemQueueSystem.Server N 2
-par TandemQueueSystem.Server pDistribution "uniform(1, 3)"
-par TandemQueueSystem.Server vDistribution "uniform(14, 16)"
+par TandemQueueSystem.Server N 1
+par TandemQueueSystem.Server pDistribution "uniform(4, 6)"
+par TandemQueueSystem.Server vDistribution "uniform(18, 20)"
 scalar TandemQueueSystem.Server busy:timeavg nan
 attr interpolationmode sample-hold
 attr recordingmode timeavg
