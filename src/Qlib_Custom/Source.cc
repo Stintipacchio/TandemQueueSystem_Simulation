@@ -58,7 +58,7 @@ void Source::handleMessage(cMessage *msg)
 
     if ((numJobs < 0 || numJobs > jobCounter) && (stopTime < 0 || stopTime > simTime())) {
         // reschedule the timer for the next message
-        scheduleAt(simTime() + par("interArrivalTime").doubleValue(), msg);
+        scheduleAt(simTime() + par("lambda").doubleValue(), msg);
 
         Job *job = createJob();
         send(job, "out");

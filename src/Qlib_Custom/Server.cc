@@ -216,13 +216,15 @@ void Server::handleMessage(cMessage *msg)
             throw cRuntimeError("a new job arrived while already servicing one");
 
         jobServiced = check_and_cast<Job *>(msg);
+        simtime_t serviceTime;
 
         if (fromQueue1) {
             jobServiced->P = pDistribution;
             //EV << "P è: " << jobServiced->P << endl;
+            serviceTime = par("m1");
         }
+        else serviceTime = par("m2");
 
-        simtime_t serviceTime = par("serviceTime");
         scheduleAt(simTime()+serviceTime, endServiceMsg);
         emit(busySignal, true);
 
