@@ -41,6 +41,7 @@ class QUEUEING_API PassiveQueue : public cSimpleModule, public IPassiveQueue
         virtual void initialize() override;
         virtual void handleMessage(cMessage *msg) override;
         virtual void refreshDisplay() const override;
+        virtual bool isServerIdle(int k);
 
     public:
         virtual ~PassiveQueue();

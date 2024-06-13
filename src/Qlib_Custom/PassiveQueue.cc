@@ -92,7 +92,7 @@ void PassiveQueue::handleMessage(cMessage *msg)
     Job *job = check_and_cast<Job *>(msg);
     job->setTimestamp();
 
-    // check for container capacity
+    // Check for container capacity
     if (capacity >= 0 && queue.getLength() >= capacity) {
         EV << "Queue full! Job dropped.\n";
         if (hasGUI())
@@ -104,17 +104,37 @@ void PassiveQueue::handleMessage(cMessage *msg)
 
     int k = selectionStrategy->select();
     if (k < 0) {
-        // enqueue if no idle server found
+        // Enqueue if no idle server found
         queue.insert(job);
         emit(queueLengthSignal, length());
         job->setQueueCount(job->getQueueCount() + 1);
     }
     else if (length() == 0) {
-        // send through without queueing
+        // Send through without queueing
         sendJob(job, k);
     }
-    else
-        throw cRuntimeError("This should not happen. Queue is NOT empty and there is an IDLE server attached to us.");
+    else {
+        //EV << "Queue length: " << length() << "\n";
+        //EV << "Server state: " << (isServerIdle(k) ? "IDLE" : "BUSY") << "\n";
+
+        if (isServerIdle(k)) {
+            throw cRuntimeError("This should not happen. Queue is NOT empty and there is an IDLE server attached to us.");
+        } else {
+            queue.insert(job);
+            emit(queueLengthSignal, length());
+            job->setQueueCount(job->getQueueCount() + 1);
+        }
+    }
+}
+
+bool PassiveQueue::isServerIdle(int k)
+{
+    cModule *serverModule = getParentModule()->getSubmodule("server", k);
+    if (serverModule) {
+        Server *server = check_and_cast<Server *>(serverModule);
+        return server->isIdle();
+    }
+    return false; // If the server module is not found, assume it's not idle
 }
 
 void PassiveQueue::refreshDisplay() const

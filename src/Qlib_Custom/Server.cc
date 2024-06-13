@@ -37,6 +37,8 @@ void Server::initialize()
     if (!selectionStrategy)
         throw cRuntimeError("invalid selection strategy");
 
+
+    N = par("N");
     pDistribution = par("pDistribution");
     vDistribution = par("vDistribution");
 
@@ -47,7 +49,7 @@ void Server::initialize()
     free = false;
 
     customersServedQ1buffer = 0;
-    strategy = 1;
+    strategy = 0;
 }
 
 int Exact_N(int N, int *customersServedQ1, int *customersServedQ2, bool *fromQueue1){
@@ -162,7 +164,7 @@ void Server::handleMessage(cMessage *msg)
 
         if (!fromQueue1) { // If the job is going to the sink
             jobServiced->V = vDistribution;
-            EV << "V è: " << jobServiced->V << endl;
+            //EV << "V è: " << jobServiced->V << endl;
         }
 
         if (fromQueue1)
@@ -192,8 +194,9 @@ void Server::handleMessage(cMessage *msg)
                 servingQueue = 2;
             }
 
-            EV << "Sta venendo servita la coda Q" << servingQueue << endl;
+            //EV << "Sta venendo servita la coda Q" << servingQueue << endl;
             cGate *gate = selectionStrategy->selectableGate(k);
+
             if (strategy == 0 || fromQueue1){
                 check_and_cast<PassiveQueue *>(gate->getOwnerModule())->request(gate->getIndex());
             }
@@ -216,7 +219,7 @@ void Server::handleMessage(cMessage *msg)
 
         if (fromQueue1) {
             jobServiced->P = pDistribution;
-            EV << "P è: " << jobServiced->P << endl;
+            //EV << "P è: " << jobServiced->P << endl;
         }
 
         simtime_t serviceTime = par("serviceTime");
