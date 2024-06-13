@@ -1,21 +1,29 @@
 version 3
-run General-0-20240613-13:29:26-27424
-attr configname General
-attr datetime 20240613-13:29:26
-attr datetimef 20240613-132926
-attr experiment General
+run Config1-0-20240613-16:29:46-35908
+attr configname Config1
+attr datetime 20240613-16:29:46
+attr datetimef 20240613-162946
+attr experiment Config1
 attr inifile omnetpp.ini
 attr iterationvars ""
 attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network TandemQueueSystem
-attr processid 27424
+attr processid 35908
 attr repetition 0
 attr replication #0
 attr resultdir results
 attr runnumber 0
 attr seedset 0
+config description "Configurazione con lambda=2.0s, m1=0.4s, m2=0.4s"
+config **.lambda 2.0s
+config **.m1 0.4s
+config **.m2 0.4s
+config **.pDistribution "uniform(1, 3)"
+config **.vDistribution "uniform(14, 16)"
+config **.cw 1.0
+config **.N 2
 config network TandemQueueSystem
 config sim-time-limit 100000s
 config warmup-period 1000s
@@ -26,14 +34,6 @@ config *.collector.collect true
 config *.collector.vector-recording true
 config *.collector.scalar-recording true
 config *.collector.interval 1s
-config description "Configurazione con lambda=2.0s, m1=0.4s, m2=0.4s"
-config **.lambda 2.0s
-config **.m1 0.4s
-config **.m2 0.4s
-config **.pDistribution "uniform(1, 3)"
-config **.vDistribution "uniform(14, 16)"
-config **.CW 1.0
-config **.N 5
 
 par TandemQueueSystem.Source.out.channel typename "\"ned.IdealChannel\""
 par TandemQueueSystem.Q1.out[0].channel typename "\"ned.IdealChannel\""
@@ -63,7 +63,7 @@ par TandemQueueSystem.Server m1 0.4s
 attr unit s
 par TandemQueueSystem.Server m2 0.4s
 attr unit s
-par TandemQueueSystem.Server N 5
+par TandemQueueSystem.Server N 2
 par TandemQueueSystem.Server pDistribution "uniform(1, 3)"
 par TandemQueueSystem.Server vDistribution "uniform(14, 16)"
 scalar TandemQueueSystem.Server busy:timeavg nan
