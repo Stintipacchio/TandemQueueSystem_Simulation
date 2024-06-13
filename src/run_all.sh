@@ -16,8 +16,12 @@ mkdir -p $RESULTS_DIR
 for CONFIG in $CONFIGS; do
   echo "Running simulation for configuration: $CONFIG"
 
+  # Rimuovi i vecchi file di output se esistono
+  [ -f results.vec ] && rm results.vec
+  [ -f results.sca ] && rm results.sca
+
   # Esegui la simulazione con la configurazione corrente
-  opp_runall -j4 ./TandemQueueSystem_Simulation.exe -u Cmdenv -c $CONFIG -n . -f $INI_FILE
+  opp_runall -j1 ./TandemQueueSystem_Simulation.exe -u Cmdenv -c $CONFIG -n . -f $INI_FILE
 
   # Rinomina e sposta i file di output nella directory dei risultati
   OUTPUT_VEC="${RESULTS_DIR}/${CONFIG}.vec"
