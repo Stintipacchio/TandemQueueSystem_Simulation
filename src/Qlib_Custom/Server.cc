@@ -234,9 +234,10 @@ void Server::handleMessage(cMessage *msg)
             jobServiced->P = pDistribution;
             pDistVector.record(pDistribution);
             //EV << "P è: " << jobServiced->P << endl;
-            serviceTime = par("m1");
+            serviceTime = exponential(par("m1").doubleValue());
+        } else {
+            serviceTime = exponential(par("m2").doubleValue());
         }
-        else serviceTime = par("m2");
 
         scheduleAt(simTime()+serviceTime, endServiceMsg);
         emit(busySignal, true);
