@@ -9,6 +9,7 @@
 
 #include "Source.h"
 #include "Job.h"
+#include <omnetpp.h>
 
 namespace queueing {
 
@@ -57,8 +58,9 @@ void Source::handleMessage(cMessage *msg)
     ASSERT(msg->isSelfMessage());
 
     if ((numJobs < 0 || numJobs > jobCounter) && (stopTime < 0 || stopTime > simTime())) {
-        // reschedule the timer for the next message
-        scheduleAt(simTime() + par("lambda").doubleValue(), msg);
+        // reschedule the timer for the next message using an exponential distribution
+        double lambda = par("lambda").doubleValue();
+        scheduleAt(simTime() + exponential(1 / lambda), msg);
 
         Job *job = createJob();
         send(job, "out");

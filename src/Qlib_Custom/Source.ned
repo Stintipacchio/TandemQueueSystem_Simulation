@@ -23,12 +23,11 @@ simple Source
         @statistic[created](title="the number of jobs created";record=last;interpolationmode=none);
         @display("i=block/source");
         int numJobs = default(-1);               // number of jobs to be generated (-1 means no limit)
-        //volatile double interArrivalTime @unit(s); // time between generated jobs
-        volatile double lambda @unit(s); // time between generated jobs
+        volatile double lambda @unit(s);         // rate parameter for the exponential distribution
         string jobName = default("job");         // the base name of the generated job (will be the module name if left empty)
         volatile int jobType = default(0);       // the type attribute of the created job (used by classifers and other modules)
         volatile int jobPriority = default(0);   // priority of the job
-        double startTime @unit(s) = default(lambda); // when the module sends out the first job
+        double startTime @unit(s) = default(0s); // when the module sends out the first job
         double stopTime @unit(s) = default(-1s); // when the module stops the job generation (-1 means no limit)
     gates:
         output out;
