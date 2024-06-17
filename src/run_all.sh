@@ -19,6 +19,7 @@ for CONFIG in $CONFIGS; do
   # Rimuovi i vecchi file di output se esistono
   [ -f results.vec ] && rm results.vec
   [ -f results.sca ] && rm results.sca
+  [ -f results.vci ] && rm results.vci
 
   # Esegui la simulazione con la configurazione corrente
   opp_runall -j1 ./TandemQueueSystem_Simulation.exe -u Cmdenv -c $CONFIG -n . -f $INI_FILE
@@ -26,6 +27,7 @@ for CONFIG in $CONFIGS; do
   # Rinomina e sposta i file di output nella directory dei risultati
   OUTPUT_VEC="${RESULTS_DIR}/${CONFIG}.vec"
   OUTPUT_SCA="${RESULTS_DIR}/${CONFIG}.sca"
+  OUTPUT_VCI="${RESULTS_DIR}/${CONFIG}.vci"
 
   if [ -f results.vec ]; then
     mv results.vec "$OUTPUT_VEC"
@@ -33,6 +35,10 @@ for CONFIG in $CONFIGS; do
 
   if [ -f results.sca ]; then
     mv results.sca "$OUTPUT_SCA"
+  fi
+
+  if [ -f results.vci ]; then
+    mv results.vci "$OUTPUT_VCI"
   fi
 done
 
