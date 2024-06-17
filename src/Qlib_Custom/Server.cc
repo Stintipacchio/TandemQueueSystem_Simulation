@@ -38,9 +38,14 @@ void Server::initialize()
         throw cRuntimeError("invalid selection strategy");
 
 
+    Strategy = par("Strategy");
+
     N = par("N");
     pDistribution = par("pDistribution");
     vDistribution = par("vDistribution");
+
+    pDistVector.setName("pDistribution");
+    vDistVector.setName("vDistribution");
 
     customersServedQ1 = 0;
     customersServedQ2 = 0;
@@ -49,7 +54,6 @@ void Server::initialize()
     free = false;
 
     customersServedQ1buffer = 0;
-    strategy = 0;
 }
 
 int Exact_N(int N, int *customersServedQ1, int *customersServedQ2, bool *fromQueue1){
@@ -163,6 +167,7 @@ void Server::handleMessage(cMessage *msg)
 
         if (!fromQueue1) { // If the job is going to the sink
             jobServiced->V = vDistribution;
+            vDistVector.record(vDistribution);
             //EV << "V è: " << jobServiced->V << endl;
         }
 
@@ -174,7 +179,7 @@ void Server::handleMessage(cMessage *msg)
 
         int k = 0;
 
-        if (strategy == 0)
+        if (Strategy == 0)
             k = Exact_N(N, &customersServedQ1, &customersServedQ2, &fromQueue1);
         else
             k = N_Limited(N, &customersServedQ1, &customersServedQ2, &fromQueue1, &isQ1Empty, &isQ2Empty, &customersServedQ1buffer);
@@ -197,14 +202,14 @@ void Server::handleMessage(cMessage *msg)
             cGate *gate = selectionStrategy->selectableGate(k);
 
             if (N == 1){
-                if ((strategy == 0 || fromQueue1) && (k==2 && !isQ2Empty)){
+                if ((Strategy == 0 || fromQueue1) && (k==2 && !isQ2Empty)){
                     check_and_cast<PassiveQueue *>(gate->getOwnerModule())->request(gate->getIndex());
                 }
                 else if (!isQ2Empty && !fromQueue1){
                     check_and_cast<PassiveQueue *>(gate->getOwnerModule())->request(gate->getIndex());
                 }
             }
-            else if ((strategy == 0 || fromQueue1)){
+            else if ((Strategy == 0 || fromQueue1)){
                 check_and_cast<PassiveQueue *>(gate->getOwnerModule())->request(gate->getIndex());
             }
             else if (!isQ2Empty && !fromQueue1){
@@ -227,6 +232,7 @@ void Server::handleMessage(cMessage *msg)
 
         if (fromQueue1) {
             jobServiced->P = pDistribution;
+            pDistVector.record(pDistribution);
             //EV << "P è: " << jobServiced->P << endl;
             serviceTime = par("m1");
         }

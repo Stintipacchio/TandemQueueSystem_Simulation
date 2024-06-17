@@ -42,9 +42,12 @@ class QUEUEING_API Server : public cSimpleModule, public IServer
         bool isQ2Empty;
         bool free;
         int customersServedQ1buffer;
-        int strategy;
+        int Strategy;
         double pDistribution;
         double vDistribution;
+
+        cOutVector pDistVector;
+        cOutVector vDistVector;
 
     public:
         virtual ~Server();

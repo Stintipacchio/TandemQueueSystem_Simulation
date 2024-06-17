@@ -29,6 +29,7 @@ simple Server
         volatile int N;
         volatile double pDistribution;
         volatile double vDistribution;
+        volatile int Strategy;
     gates:
         input in[];
         output out;
