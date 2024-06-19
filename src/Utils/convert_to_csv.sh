@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Directory di input e output
-input_dir="./results"
-output_dir="./results_CSV"
+input_dir="../results"
+output_dir="../results_CSV"
 
 # Crea la directory di output se non esiste
 mkdir -p "$output_dir"
