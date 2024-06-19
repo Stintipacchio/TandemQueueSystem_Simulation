@@ -68,15 +68,15 @@ int Exact_N(int N, int *customersServedQ1, int *customersServedQ2, bool *fromQue
     }
 
     // select the next queue based on the current state
-    int k = *fromQueue1 ? 0 : 2;  // queue index
-    if (*fromQueue1) {
-        //std::cout << "Il numero di clienti serviti in Q1 è: " << customersServedQ1 << std::endl;
-        EV << "Switching to Queue 1" << endl;
-    } else {
-        //std::cout << "Il numero di clienti serviti in Q2 è: " << customersServedQ2 << std::endl;
-        EV << "Switching to Queue 2" << endl;
-    }
-    return k;
+//    int k = *fromQueue1 ? 0 : 2;  // queue index
+//    if (*fromQueue1) {
+//        //std::cout << "Il numero di clienti serviti in Q1 è: " << customersServedQ1 << std::endl;
+//        EV << "Switching to Queue 1" << endl;
+//    } else {
+//        //std::cout << "Il numero di clienti serviti in Q2 è: " << customersServedQ2 << std::endl;
+//        EV << "Switching to Queue 2" << endl;
+//    }
+//    return k;
 
 }
 
