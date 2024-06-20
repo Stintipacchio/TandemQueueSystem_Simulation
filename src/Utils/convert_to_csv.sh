@@ -31,7 +31,7 @@ convert_file() {
             ;;
     esac
 
-    ../../../bin/opp_scavetool.exe export -o "$output_file" "$file_path"
+    ../../../../bin/opp_scavetool.exe export -o "$output_file" "$file_path"
     echo "Convertito: $file_path -> $output_file"
 }
 

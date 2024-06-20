@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Nome del file di configurazione .ini
-INI_FILE="../omnetpp.ini"
+INI_FILE="./omnetpp.ini"
 
 # Estrai i nomi delle configurazioni dal file ini
 CONFIGS=$(grep -oP '(?<=^\[Config ).*(?=\])' $INI_FILE)
 
 # Path dove salvare i risultati
-RESULTS_DIR="../results"
+RESULTS_DIR="./results"
 
 # Crea la directory per i risultati se non esiste
 mkdir -p $RESULTS_DIR
@@ -22,7 +22,7 @@ for CONFIG in $CONFIGS; do
   [ -f results.vci ] && rm results.vci
 
   # Esegui la simulazione con la configurazione corrente
-  opp_runall -j1 ../TandemQueueSystem_Simulation.exe -u Cmdenv -c $CONFIG -n . -f $INI_FILE
+  opp_runall -j1 ./TandemQueueSystem_Simulation.exe -u Cmdenv -c $CONFIG -n . -f $INI_FILE
 
   # Rinomina e sposta i file di output nella directory dei risultati
   OUTPUT_VEC="${RESULTS_DIR}/${CONFIG}.vec"
